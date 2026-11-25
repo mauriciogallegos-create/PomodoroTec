@@ -235,16 +235,19 @@ class PomodoroViewModel(application: Application) : AndroidViewModel(application
             )
             .setContentTitle(customTitle)
             .setContentText(customMessage)
+            .setSubText(if (_currentPhase.value == Phase.FOCUS) "Enfoque Activo 🎯" else "Pausa Activa ☕")
             .setStyle(style)
             .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setCategory(NotificationCompat.CATEGORY_PROGRESS)
             .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
+            .setAutoCancel(false)
+            .setOngoing(true)
             .setColor(notificationColor)
             .setColorized(true)
             .setLights(notificationColor, 1000, 1000)
             .setVibrate(vibrationPattern)
             .setProgress(100, progress, false)
+            .setOnlyAlertOnce(true)
             .setSound(
                 RingtoneManager.getDefaultUri(
                     if (_currentPhase.value == Phase.FOCUS) RingtoneManager.TYPE_RINGTONE
